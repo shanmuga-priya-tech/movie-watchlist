@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from flask import Blueprint, current_app, render_template,url_for,session,redirect,request,abort
 from movie_library.forms import MovieForm
 from movie_library.models import Movie
@@ -55,6 +56,11 @@ def rate_movie(_id):
     current_app.db.movie.update_one({"_id":_id},{"$set":{ "rating" : rating }})
 
     return redirect(url_for("pages.movie", _id=_id))
+
+@pages.get("/movie/<string:_id>/watch")
+def watch_today(_id):
+    current_app.db.movie.update_one({"_id":_id},{"$set":{ "last_watched" : datetime.today() }})
+    return redirect(url_for("pages.movie", _id = _id))
 
 
 @pages.get("/toggle-theme")
