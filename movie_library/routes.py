@@ -43,10 +43,18 @@ def add_movie():
 @pages.get("/movie/<string:_id>")
 def movie(_id):
     movie_data = current_app.db.movie.find_one({"_id":_id})
-    if not movie_data:
-        abort(404)
+    # if not movie_data:
+    #     abort(404)
     movie = Movie(**movie_data)
     return render_template("movie_details.html",movie = movie)
+
+
+@pages.get("/movie/<string:_id>/rate")
+def rate_movie(_id):
+    rating = int(request.args.get("rating"))
+    current_app.db.movie.update_one({"_id":_id},{"$set":{ "rating" : rating }})
+
+    return redirect(url_for("pages.movie", _id=_id))
 
 
 @pages.get("/toggle-theme")
