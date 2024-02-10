@@ -15,5 +15,10 @@ class Movie:
     description: str = None
     video_link:str =None
     
-
+@dataclass
+class User:
+    _id: str
+    email: str
+    password: str
+    movies: list[str] = field(default_factory=list)
 

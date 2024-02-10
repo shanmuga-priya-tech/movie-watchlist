@@ -1,6 +1,39 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,IntegerField,SubmitField,TextAreaField,URLField
-from wtforms.validators import InputRequired,NumberRange
+from wtforms import StringField,IntegerField,SubmitField,TextAreaField,URLField,PasswordField
+from wtforms.validators import InputRequired,NumberRange,Email,EqualTo,Length
+
+
+class RegisterForm(FlaskForm):
+    email = StringField("Email", validators=[InputRequired(), Email()])
+
+    password = PasswordField(
+        "Password",
+        validators=[
+            InputRequired(),
+            Length(
+                min=4,
+                message="Your password must be atleast 8 characters long.",
+            ),
+        ],
+    )
+
+    confirm_password = PasswordField(
+        "Confirm Password",
+        validators=[
+            InputRequired(),
+            EqualTo(
+                "password",
+                message="This password did not match the one in the password field.",
+            ),
+        ],
+    )
+
+    submit = SubmitField("Register")
+
+
+
+
+
 
 class MovieForm(FlaskForm):
     title = StringField("Title",validators=[InputRequired()])
@@ -39,5 +72,4 @@ class ExtendedMovieForm(MovieForm):
 
     submit = SubmitField("Submit")
 
-    <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/lMiuUcgn9hg?si=eALM2bFcv2ktEmI-" 
+    
