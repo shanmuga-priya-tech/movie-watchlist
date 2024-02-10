@@ -30,10 +30,10 @@ class RegisterForm(FlaskForm):
 
     submit = SubmitField("Register")
 
-
-
-
-
+class LoginForm(FlaskForm):
+    email = StringField("Email", validators=[InputRequired(), Email()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    submit = SubmitField("Login")
 
 class MovieForm(FlaskForm):
     title = StringField("Title",validators=[InputRequired()])
