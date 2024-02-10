@@ -87,6 +87,17 @@ def login():
 
     return render_template("login.html", title="Movies Watchlist - Login", form=form)
 
+@pages.route("/logout")
+def logout():
+    # del session["email"]
+    # del session["user_id"]
+
+    current_theme = session.get("theme")
+    session.clear()
+    session["theme"] = current_theme
+
+    return redirect(url_for(".login"))
+
 
 @pages.route("/add",methods = ["GET","POST"])
 @login_required
