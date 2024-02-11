@@ -12,7 +12,7 @@ class RegisterForm(FlaskForm):
             InputRequired(),
             Length(
                 min=4,
-                message="Your password must be atleast 8 characters long.",
+                message="Your password must be atleast 4 characters long.",
             ),
         ],
     )
